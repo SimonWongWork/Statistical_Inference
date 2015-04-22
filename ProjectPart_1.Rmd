@@ -1,0 +1,24 @@
+---
+title: "Statistical Inference Project Part 1"
+author: "SimonWong"
+date: "Wednesday, April 22, 2015"
+---
+
+
+##Synopsis
+In this project, students are required to use simulation to explore inference and
+do some simple inferential data analysis. The project consists of two parts:
+
+1. A simulation exercise.
+2. Basic inferential data analysis.
+
+Simulation of exponential distribution in R  will be used to compare with the Central Limit
+Theorem.
+The distribution of averages of 40 exponentials will be studied in this project:
+1. The sample mean of the distribution of average of 40 exponentials will be compared with the theoretical mean of the distribution.
+2. The variance of the sample as compared with the theoretical variance of the distribution.
+3. Showing the distribution is approximately normal.
+
+
+
+
