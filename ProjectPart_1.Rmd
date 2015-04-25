@@ -6,19 +6,65 @@ date: "Wednesday, April 22, 2015"
 
 
 ##Synopsis
-In this project, students are required to use simulation to explore inference and
-do some simple inferential data analysis. The project consists of two parts:
+Simulation to explore inference and some simple inferential data analysis on the following parts will be showed in this report:
 
 1. A simulation exercise.
 2. Basic inferential data analysis.
 
-Simulation of exponential distribution in R  will be used to compare with the Central Limit
-Theorem.
+Simulation of exponential distribution in R  will be used to compare with the Central Limit Theorem.
 The distribution of averages of 40 exponentials will be studied in this project:
 1. The sample mean of the distribution of average of 40 exponentials will be compared with the theoretical mean of the distribution.
 2. The variance of the sample as compared with the theoretical variance of the distribution.
 3. Showing the distribution is approximately normal.
 
 
+##Result
+
+First, let create a thousand simulated averages of 40 exponentials, i.e. rexp(40,0.2)
+```{r}
+# Load necessary libaries.
+library(ggplot2)
+
+
+# Set Lambda to 0.2.
+lambda <- 0.2
+
+# Set number of exponentials to 40.
+num_of_exponentials <- 40
+
+# Set number of Simulation to 1000.
+num_of_simulation <- 1000
+
+# set the seed create random for create reproducability.
+set.seed(37674)
+
+# Start to simulate.
+simulated_exponentials <- replicate(num_of_simulation, rexp(num_of_exponentials, lambda))
+
+# Find the mean of exponentials.
+simulation_means_exponentials <- apply(simulated_exponentials, 2, mean)
+
+# Find the analytical sample mean.
+sample_mean <- mean(simulation_means_exponentials)
+
+# Theoretical mean is 1/lambda.
+theoretical_mean <- 1/lambda
+
+# Show the Analytical mean and Theory mean.
+sample_mean
+theoretical_mean
+
+```
+
+###Question 1: Compare the sample mean with the theoretical mean of the distribution.
+*answer :* As the result obtained of both are close, it can concluded that the sample mean is similar to the theoretical mean of the distribution.
+
+```{r}
+theoretical_sd    <- ((1/lambda) * (1/sqrt(num_of_exponentials))
+actual_sd         <- sd(simulated_exponentials)
+theoretical_var   <- theoretical_sd^2
+actual_var        <- var(simulated_exponentials)
+
+```
 
 
