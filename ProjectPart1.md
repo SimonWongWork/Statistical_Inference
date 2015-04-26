@@ -132,4 +132,4 @@ As seen in distribution of average 40 exponentials, actual data with yellow colo
 Others like actual mean in continous green line and theoretical mean in orange longdash lone are also displayed in this plot.
 
 ![Plot of distribution of average 40 exponentials] (figure/figure.jpg)
-
+![Plot of distribution of average 40 exponentials] (figure/Figure.jpg)
