@@ -131,5 +131,5 @@ print(plot1)
 As seen in distribution of average 40 exponentials, actual data with yellow colour is close to the normal distribution.
 Others like actual mean in continous green line and theoretical mean in orange longdash lone are also displayed in this plot.
 
-
+![Plot of distribution of average 40 exponentials] (figur/figure.jpg)
 
