@@ -1,6 +1,6 @@
 ---
 title: "Statistical Inference Project Part 1"
-output: pdf_document
+output: html_document
 date: "Wednesday, April 22, 2015"
 ---
 
