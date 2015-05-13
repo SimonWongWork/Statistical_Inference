@@ -1,0 +1,73 @@
+---
+title: "Statistical Inference Project Part 2"
+output: html_document
+date: "Wednesday, April 22, 2015"
+---
+
+
+##Synopsis
+This is the report of the second part of Peer assignment of Statistical inference of coursera.
+The ToothGrowth dataset is the database collected based on the the Effect of Vitamin C on Tooth Growth in Guinea Pigs.
+As described in R documentation, this ToothGrowth dataset recorded the response of the length of odontoblasts (teeth) in each of 10 guinea pigs at each of three dose levels of Vitamin C (0.5, 1, and 2 mg) with each of two delivery methods (orange juice or ascorbic acid).
+
+
+##Result
+###1. Load the ToothGrowth data and perform some basic exploratory data analyses.
+**Answer :** 
+
+```{r}
+# load the neccessary libraries and dataset.
+library(ggplot2)
+library(datasets)
+data(ToothGrowth)
+
+# Take a glance at the loaded ToothGrowth dataset.
+str(ToothGrowth)
+
+# Verify the number of row as mentioned in R documentation.
+nrow(ToothGrowth)
+
+# Processing the variable dose of the dataset to factor.
+ToothGrowth$dose <- as.factor(ToothGrowth$dose)
+
+# re-look the processed dataset.
+str(ToothGrowth)
+
+```
+
+
+###2. Show a basic summary of the data.
+**Answer :** 
+
+```{r}
+# Show the summary statistics for the processed dataset.
+summary(ToothGrowth)
+```
+
+There are 60 samples in this dataset and it consists of **len**, **supp** and **dose**.
+The variable **len** is the length of odontoblasts (teeth) in each of 10 guinea pigs.
+**supp** are the two delivery methods: orange juice (OJ) or ascorbic acid (VC).
+**dose** is the three dose levels of Vitamin C (0.5, 1, and 2 mg) conducted for this test.
+
+ 
+
+```{r}
+# To use hypothesis tests to compare tooth growth by supp and dose, firstly split the cases into different dose levels and delivery methods.
+table(ToothGrowth$dose, ToothGrowth$supp)
+```
+
+
+```{r}
+# Display the tooth growth in delivery methods (supplement type).
+ggplot(aes(x=dose, y=len), data=ToothGrowth) + geom_boxplot(aes(fill=dose))
+ggplot(aes(x=supp, y=len), data=ToothGrowth) + geom_boxplot(aes(fill=supp))
+```
+
+
+```{r}
+# Display the tooth growth in dose levels of Vitamin C.
+#ggplot(aes(x=dose, y=len), data=ToothGrowth) + geom_boxplot(aes(fill=supp))
+
+```
+
+
