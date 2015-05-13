@@ -59,6 +59,15 @@ theoretical_mean <- 1/lambda
 *Answer :* 
 
 ```{r}
+# Show a Histogram of 1000 exponential distributions is asymmetrical around a central point as in the Normal distribution.
+# Actual curve line in black colour shows the actual exponential distributions.
+num   <- 1000 
+x     <- rexp(num, 0.2) 
+hist(x, probability = T, col = 'light green', density = 20, main ='Exponential Distribution') 
+curve(dexp(x, 0.2), xlim = c(0,40), col = 'black', lwd = 3, add = T)
+```
+
+```{r}
 # Show the Analytical Sample mean.
 analytical_sample_mean
 ```
