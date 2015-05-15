@@ -126,6 +126,92 @@ ggplot(aes(x=dose, y=len), data=ToothGrowth) + geom_boxplot(aes(fill=dose))</cod
 <pre class="r"><code># Display the tooth growth in dose levels of Vitamin C.
 #ggplot(aes(x=dose, y=len), data=ToothGrowth) + geom_boxplot(aes(fill=supp))</code></pre>
 </div>
+<div id="use-confidence-intervals-andor-hypothesis-tests-to-compare-tooth-growth-by-supp-and-dose." class="section level3">
+<h3>3. Use confidence intervals and/or hypothesis tests to compare tooth growth by supp and dose.</h3>
+<p><strong>Answer :</strong></p>
+<pre class="r"><code># Firstly, assume that there is a unequal variance between the two group of testing, supp and dose, in this toothGrowth dataset.
+#t.test(len ~ supp, data = ToothGrowth)
+len  &lt;- ToothGrowth$len
+supp &lt;- ToothGrowth$supp
+dose &lt;- ToothGrowth$dose
+
+t.test(len[supp==&quot;OJ&quot;], len[supp==&quot;VC&quot;], paired = FALSE, var.equal = FALSE)</code></pre>
+<pre><code>## 
+##  Welch Two Sample t-test
+## 
+## data:  len[supp == &quot;OJ&quot;] and len[supp == &quot;VC&quot;]
+## t = 1.9153, df = 55.309, p-value = 0.06063
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -0.1710156  7.5710156
+## sample estimates:
+## mean of x mean of y 
+##  20.66333  16.96333</code></pre>
+<p>Based on the computed result, the p-value of this test is 0.0603 at a significance level of 5%. This data gives us less evidence to neglect null hypothesis and to conclude that the effectiveness of the delivery of the vitamin on the tooth length.The confidence interval of this test is (-0.1710156 7.5710156). Obviously, one of the reading shows that the confidence interval contains zero.</p>
+<p>Next, steps required to find out the effect on the mean of the tooth length when the test conducted on the vitamin C dosage of 2mg and 1mg.</p>
+<p>Before the tests conduct, let the Ho be the Null hypotheses of equal means of the the two groups, versus the alternative hypothesis that the two means are different. Hence a two sided test can be carried out.</p>
+<pre class="r"><code>t.test(len[dose == 1], len[dose == 2], paired = FALSE, var.equal = TRUE)</code></pre>
+<pre><code>## 
+##  Two Sample t-test
+## 
+## data:  len[dose == 1] and len[dose == 2]
+## t = -4.9005, df = 38, p-value = 1.811e-05
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -8.994387 -3.735613
+## sample estimates:
+## mean of x mean of y 
+##    19.735    26.100</code></pre>
+<p>The obtained result shows that the p-value of this test is very close to 0 (1.811e-05) at a significance level of 5%. With this informative data, sufficient evidence allows us to reject th null hypothesis, consequently, it is concluded that the means of dosage change from 1mg to 2mg lead to tooth length increses.</p>
+<p>The confidence interval of the test is (-8.994387 -3.735613) and it gives direct information of no zero in confidence interval.</p>
+<p>Test will continue on the mean tooth length of the group with vitamin C dose of 1mg versus the vitamin C dose of 0.5mg.</p>
+<pre class="r"><code>t.test(len[dose == 0.5], len[dose == 1], paired = FALSE, var.equal = TRUE)</code></pre>
+<pre><code>## 
+##  Two Sample t-test
+## 
+## data:  len[dose == 0.5] and len[dose == 1]
+## t = -6.4766, df = 38, p-value = 1.266e-07
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -11.983748  -6.276252
+## sample estimates:
+## mean of x mean of y 
+##    10.605    19.735</code></pre>
+<p>The obtained result shows that the p-value of this test is very close to 0 (1.266e-07) at a significance level of 5%. Similar to previous test, there is sufficient evidence allows us to reject th null hypothesis, consequently, it is concluded that the means of dosage change from 0.5mg to 1mg lead to tooth length increses.</p>
+<p>The confidence interval of the test is (-11.983748 -6.276252) and it gives direct information of no zero in confidence interval.</p>
+<p>Find out the 4 different pvalues for 4 tests.</p>
+<pre class="r"><code># Store pvalues in a vector.
+pValues &lt;- c(t.test(len[supp==&quot;OJ&quot;], len[supp==&quot;VC&quot;], paired = FALSE, var.equal = FALSE)$p.value,
+           t.test(len[dose==2], len[dose==1], paired = FALSE, var.equal = TRUE)$p.value,
+           t.test(len[dose==1], len[dose==0.5], paired = FALSE, var.equal = TRUE)$p.value,
+           t.test(len[dose==2], len[dose==0.5], paired = FALSE, var.equal = TRUE)$p.value)
+
+# Manipulates Family-wise error rate (FWER)
+sum(p.adjust(pValues, method = &quot;bonferroni&quot;) &lt; 0.05)</code></pre>
+<pre><code>## [1] 3</code></pre>
+<pre class="r"><code>round(p.adjust(pValues, method = &quot;bonferroni&quot;),3)</code></pre>
+<pre><code>## [1] 0.243 0.000 0.000 0.000</code></pre>
+<pre class="r"><code># Manipulates False discovery rate (FDR)
+sum(p.adjust(pValues, method = &quot;BH&quot;) &lt; 0.05)</code></pre>
+<pre><code>## [1] 3</code></pre>
+<pre class="r"><code>round(p.adjust(pValues, method = &quot;BH&quot;),3)</code></pre>
+<pre><code>## [1] 0.061 0.000 0.000 0.000</code></pre>
+<p>The test result of pvalues test shows the value of 1st pvalues test is the biggest and it is considered sufficient evident to accept the Null hypothesis.</p>
+</div>
+<div id="conclusion." class="section level3">
+<h3>4. Conclusion.</h3>
+<ul>
+<li>Increase the dose level from 0.5mg to 1mg or from 1mg to 2mg lead to increased tooth growth.</li>
+<li>Supplement type, either orange juice (OJ) or ascorbic acid (VC), brings no effect on tooth growth.</li>
+</ul>
+</div>
+<div id="assumption-for-the-conclusion." class="section level3">
+<h3>5. Assumption for the Conclusion.</h3>
+<ul>
+<li>The sample of 60 Guinea pigs is assumed to be the representative of the majority so that the conclusion can be considered valid for this population.</li>
+<li>This experiment is conducted by assuming that each Guinea pig is randomly pick for the tests.</li>
+</ul>
+</div>
 </div>
 
 
