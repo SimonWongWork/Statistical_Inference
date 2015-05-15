@@ -1,7 +1,7 @@
 ---
 title: "Statistical Inference Project Part 1"
 output: html_document
-date: "Wednesday, April 22, 2015"
+date: "Friday, May 15, 2015"
 ---
 
 
